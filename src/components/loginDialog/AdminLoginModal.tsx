@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { adminLogin } from "../../services/login.service";
+import { useAuth } from "../landingPage/contexts/AuthContext";
 
 interface AdminLoginModalProps {
   isVisible: boolean;
@@ -9,7 +11,37 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
   isVisible,
   closeModal,
 }) => {
-  if (!isVisible) return null; // Don't render the modal if it's not visible
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { setIsLoggedIn } = useAuth();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    if (id === "username") {
+      setUsername(value);
+    } else if (id === "password") {
+      setPassword(value);
+    }
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default form submission
+
+    try {
+      // setLoading(true); // Start loading
+      const token = await adminLogin(username, password);
+      if (token) {
+        sessionStorage.setItem("accessToken", token);
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch {
+      console.log("Invalid username or password!"); // Show error on failure
+    }
+  };
+
+  if (!isVisible) return null;
 
   return (
     <>
@@ -22,18 +54,21 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
           <h2 className="text-2xl text-white font-semibold mb-4">
             Admin Login
           </h2>
-          <form>
-            {/* Form will go here */}
+          <form onSubmit={handleSubmit}>
             <div>
               <input
+                id="username"
                 type="text"
                 placeholder="Username"
                 className="w-full p-2 border mb-4 rounded"
+                onChange={handleChange}
               />
               <input
+                id="password"
                 type="password"
                 placeholder="Password"
                 className="w-full p-2 border mb-4 rounded"
+                onChange={handleChange}
               />
             </div>
             <div className="flex justify-between">

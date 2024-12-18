@@ -1,79 +1,38 @@
 import SongCardsGrid from "./components/landingPage/SongCardsGrid";
 import Pagination from "./components/landingPage/Paginations";
 import AdminLoginButton from "./components/landingPage/adminLoginButton";
+import { PaginationProvider } from "./components/landingPage/contexts/PaginationContext";
+import { useState } from "react";
+import AdminLoginModal from "./components/loginDialog/AdminLoginModal";
 
 const App = () => {
-  const songs = [
-    {
-      title: "Song 1",
-      artist: "Artist assssssss sssssssss1",
-      album: "Album 1",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 1",
-      artist: "Artist ssssss1",
-      album: "Album 1",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 1",
-      artist: "Artist assssssssss1",
-      album: "Album 1",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 1",
-      artist: "Artist asssssssss ssss1",
-      album: "Album 1",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 1",
-      artist: "Artist asssssssssss sss sssssss1",
-      album: "Album 1",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 1",
-      artist: "Artist juman",
-      album: "Album 1",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 2",
-      artist: "Artist 2",
-      album: "Album 2",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-    {
-      title: "Song 3",
-      artist: "Artist 3",
-      album: "Album 3",
-      imageUrl: "https://via.placeholder.com/150",
-    },
-  ];
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // Function to show modal
+  const showModal = () => setIsModalVisible(true);
+
+  // Function to hide modal
+  const hideModal = () => setIsModalVisible(false);
 
   return (
-    <div className="bg-gray-800 min-h-screen min-w-full">
-      <div className="flex  justify-center  bg-gray-800  min-h-screen min-w-full">
-        <AdminLoginButton />
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-yellow-400 mb-8 p-8">
-            Song Library
-          </h1>
-          <SongCardsGrid songs={songs}></SongCardsGrid>
+    <PaginationProvider>
+      <div className="bg-gray-800 min-h-screen min-w-full">
+        <div className="flex  justify-center  bg-gray-800  min-h-screen min-w-full">
+          <AdminLoginButton onClick={showModal} />
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-yellow-400 mb-8 p-8">
+              Song Library
+            </h1>
+
+            <SongCardsGrid></SongCardsGrid>
+          </div>
+        </div>
+        <div>
+          <Pagination />
+          <AdminLoginModal isVisible={isModalVisible} closeModal={hideModal} />
         </div>
       </div>
-      <div>
-        <Pagination
-          currentPage={2}
-          totalPages={5}
-          onPrevPage={() => {}}
-          onNextPage={() => {}}
-        ></Pagination>
-      </div>
-    </div>
+    </PaginationProvider>
   );
 };
 

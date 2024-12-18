@@ -1,8 +1,8 @@
 export interface SongCardProps {
-  title: string;
+  name: string;
   artist: string;
   album: string;
-  imageUrl: string;
+  image: string;
 }
 export interface SongCardsGridProps {
   songs: SongCardProps[];

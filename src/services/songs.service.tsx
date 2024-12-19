@@ -23,6 +23,7 @@ export const fetchSongs = async (pageNumber: number): Promise<Song[]> => {
 
 export const addSong = async (songData: Song) => {
   const token = sessionStorage.getItem("accessToken");
+  console.log(JSON.stringify(token));
   await axios
     .post(`http://localhost:3000/`, songData, {
       headers: {

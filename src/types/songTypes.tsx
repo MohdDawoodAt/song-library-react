@@ -3,6 +3,7 @@ export interface Song {
   artist: string;
   album: string;
   image: string;
+  releaseDate: string;
 }
 export interface SongCardsGridProps {
   songs: Song[];

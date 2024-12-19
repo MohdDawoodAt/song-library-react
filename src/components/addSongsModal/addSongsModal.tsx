@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { addSong } from "../../services/songs.service";
+import { Song } from "../../types/songTypes";
 
 interface AddSongsModalProps {
   isVisible: boolean;
@@ -6,12 +8,12 @@ interface AddSongsModalProps {
 }
 
 const AddSongsModal = ({ isVisible, closeModal }: AddSongsModalProps) => {
-  const [songData, setSongData] = useState({
-    songName: "",
-    artistName: "",
-    albumName: "",
+  const [songData, setSongData] = useState<Song>({
+    name: "",
+    artist: "",
+    album: "",
+    image: "",
     releaseDate: "",
-    imageUrl: "",
   });
   const [error, setError] = useState("");
 
@@ -29,6 +31,7 @@ const AddSongsModal = ({ isVisible, closeModal }: AddSongsModalProps) => {
     if (!error) {
       try {
         // call the addsong to db service
+        await addSong(songData);
         closeModal();
       } catch {
         console.error("could not add error");
@@ -52,7 +55,7 @@ const AddSongsModal = ({ isVisible, closeModal }: AddSongsModalProps) => {
           <form onSubmit={handleSubmit}>
             <div>
               <input
-                id="songName"
+                id="name"
                 type="text"
                 placeholder="Song Title"
                 className="w-full p-2 border mb-4 rounded"
@@ -60,7 +63,7 @@ const AddSongsModal = ({ isVisible, closeModal }: AddSongsModalProps) => {
               />
               {error && <p>{error}</p>}
               <input
-                id="artistName"
+                id="artist"
                 type="text"
                 placeholder="Artist Name"
                 className="w-full p-2 border mb-4 rounded"
@@ -68,7 +71,7 @@ const AddSongsModal = ({ isVisible, closeModal }: AddSongsModalProps) => {
               />
               {error && <p>{error}</p>}
               <input
-                id="albumName"
+                id="album"
                 type="text"
                 placeholder="Album"
                 className="w-full p-2 border mb-4 rounded"
@@ -84,7 +87,7 @@ const AddSongsModal = ({ isVisible, closeModal }: AddSongsModalProps) => {
               />
               {error && <p>{error}</p>}
               <input
-                id="imageUrl"
+                id="image"
                 type="text"
                 placeholder="Image Url"
                 className="w-full p-2 border mb-4 rounded"

@@ -14,7 +14,7 @@ export const adminLogin = async (
       { headers: { "Content-Type": "application/json" } }
     );
 
-    return response.data;
+    return response.data.access_token;
   } catch {
     console.error("Login failed:");
   }

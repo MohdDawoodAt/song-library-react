@@ -1,7 +1,6 @@
-import { SongCardProps } from "../../types/songTypes";
+import { Song } from "../../types/songTypes";
 
-const SongCard = ({ name, artist, album, image }: SongCardProps) => {
-  console.log(String(image));
+const SongCard = ({ name, artist, album, image }: Song) => {
   return (
     <div className="group bg-gray-700 text-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transform transition duration-300">
       <div className="overflow-hidden">

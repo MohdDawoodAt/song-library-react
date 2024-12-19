@@ -13,13 +13,8 @@ export const adminLogin = async (
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    // console.log(username + " " + password);
 
-    if (response.status === 201) {
-      // Save the token or authentication state here (perhaps in Context or localStorage)
-      // console.log("Login successful:", response.data);
-      return response.data;
-    }
+    return response.data;
   } catch {
     console.error("Login failed:");
   }

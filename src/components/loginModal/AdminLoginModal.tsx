@@ -33,11 +33,12 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
       if (token) {
         sessionStorage.setItem("accessToken", token);
         setIsLoggedIn(true);
+        closeModal();
       } else {
         setIsLoggedIn(false);
       }
     } catch {
-      console.log("Invalid username or password!"); // Show error on failure
+      console.error("Invalid username or password!"); // Show error on failure
     }
   };
 

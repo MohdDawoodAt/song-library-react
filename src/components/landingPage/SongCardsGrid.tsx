@@ -1,12 +1,12 @@
 import SongCard from "./SongCard";
-import { SongCardProps } from "../../types/songTypes";
+import { Song } from "../../types/songTypes";
 import { usePagination } from "./contexts/PaginationContext";
 import { useEffect, useState } from "react";
 import { fetchSongs } from "../../services/songs.service";
 
 const SongCardsGrid = () => {
   const { currentPage } = usePagination();
-  const [songs, setSongs] = useState<SongCardProps[] | null>(null);
+  const [songs, setSongs] = useState<Song[] | null>(null);
   // const fetchedSongs= fetchSongs(pagenumber)
   // setSongs(fetchedSongs)
 

@@ -13,7 +13,7 @@ const AdminLoginButton = ({ onClick }: AdminLoginButtonProps) => {
   return (
     <button
       onClick={isLoggedIn ? handleLogout : onClick}
-      className="bg-yellow-400 text-gray-800 px-6 py-3 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 absolute top-4 right-4"
+      className="bg-yellow-400 text-gray-800 px-6 py-3 rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50  absolute top-4 right-9"
       // onClick={onClick}
     >
       {isLoggedIn ? "Logout" : "Admin Login"}{" "}

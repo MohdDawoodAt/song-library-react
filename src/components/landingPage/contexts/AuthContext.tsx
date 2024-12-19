@@ -9,7 +9,7 @@ const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  // console.log(sessionStorage.getItem("authToken"));
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       {children}

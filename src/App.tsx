@@ -4,9 +4,10 @@ import AdminLoginButton from "./components/landingPage/adminLoginButton";
 import { PaginationProvider } from "./components/landingPage/contexts/PaginationContext";
 import { useState } from "react";
 import AdminLoginModal from "./components/loginModal/AdminLoginModal";
-import SearchBar from "./components/landingPage/contexts/SearchBar";
+import SearchBar from "./components/landingPage/SearchBar";
 import AddSongsButton from "./components/landingPage/AddSongsButton";
 import AddSongsModal from "./components/addSongsModal/addSongsModal";
+import { SearchProvider } from "./components/landingPage/contexts/SearchContext";
 
 const App = () => {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
@@ -22,31 +23,33 @@ const App = () => {
 
   return (
     <PaginationProvider>
-      <div className="bg-gray-800 min-h-screen min-w-full">
-        <div className="flex  justify-center  bg-gray-800  min-h-screen min-w-full">
-          <AdminLoginButton onClick={showLoginModal} />
-          <AddSongsButton onClick={showAddSongModal} />
+      <SearchProvider>
+        <div className="bg-gray-800 min-h-screen min-w-full">
+          <div className="flex  justify-center  bg-gray-800  min-h-screen min-w-full">
+            <AdminLoginButton onClick={showLoginModal} />
+            <AddSongsButton onClick={showAddSongModal} />
 
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-yellow-400 mb-2 p-2">
-              Song Library
-            </h1>
-            <SearchBar onSearch={() => {}} />
-            <SongCardsGrid></SongCardsGrid>
+            <div className="text-center">
+              <h1 className="text-3xl font-bold text-yellow-400 mb-2 p-2">
+                Song Library
+              </h1>
+              <SearchBar />
+              <SongCardsGrid />
+            </div>
+          </div>
+          <div>
+            <Pagination />
+            <AdminLoginModal
+              isVisible={isLoginModalVisible}
+              closeModal={hideLoginModal}
+            />
+            <AddSongsModal
+              isVisible={isAddSongsModalVisible}
+              closeModal={hideAddSongModal}
+            />
           </div>
         </div>
-        <div>
-          <Pagination />
-          <AdminLoginModal
-            isVisible={isLoginModalVisible}
-            closeModal={hideLoginModal}
-          />
-          <AddSongsModal
-            isVisible={isAddSongsModalVisible}
-            closeModal={hideAddSongModal}
-          />
-        </div>
-      </div>
+      </SearchProvider>
     </PaginationProvider>
   );
 };

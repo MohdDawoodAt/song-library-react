@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { adminLogin } from "../../services/login.service";
 import { useAuth } from "../landingPage/contexts/AuthContext";
 
@@ -13,6 +13,11 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
+  const [feedbackType, setFeedbackType] = useState<"success" | "error" | null>(
+    null
+  );
 
   const { setIsLoggedIn } = useAuth();
 
@@ -33,14 +38,30 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
       if (token) {
         sessionStorage.setItem("accessToken", token);
         setIsLoggedIn(true);
+        setFeedbackMessage("Login successful!");
+        setFeedbackType("success");
         closeModal();
       } else {
         setIsLoggedIn(false);
+        setFeedbackMessage("Invalid username or password.");
+        setFeedbackType("error");
       }
     } catch {
-      console.error("Invalid username or password!"); // Show error on failure
+      setFeedbackMessage("Something went wrong. Please try again.");
+      setFeedbackType("error");
     }
   };
+
+  useEffect(() => {
+    if (feedbackMessage) {
+      const timer = setTimeout(() => {
+        setFeedbackMessage(null);
+        setFeedbackType(null);
+      }, 3000);
+
+      return () => clearTimeout(timer); // Cleanup the timer
+    }
+  }, [feedbackMessage]);
 
   if (!isVisible) return null;
 
@@ -88,6 +109,15 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
               </button>
             </div>
           </form>
+          {feedbackMessage && (
+            <div
+              className={`mt-4 p-2 rounded ${
+                feedbackType === "success" ? "bg-green-500" : "bg-red-300"
+              } text-white`}
+            >
+              {feedbackMessage}
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ interface PaginationContextData {
   goToNextPage: () => void;
   goToPreviousPage: () => void;
   setTotalPages: (total: number) => void;
+  setCurrentPage: (total: number) => void;
 }
 
 const PaginationContext = createContext<PaginationContextData | undefined>(
@@ -26,7 +27,7 @@ export const PaginationProvider = ({
   children: React.ReactNode;
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(15);
+  const [totalPages, setTotalPages] = useState(1);
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
@@ -47,6 +48,7 @@ export const PaginationProvider = ({
         goToNextPage,
         goToPreviousPage,
         setTotalPages,
+        setCurrentPage,
       }}
     >
       {children}

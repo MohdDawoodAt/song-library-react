@@ -1,10 +1,12 @@
 import axios from "axios";
 import { Song } from "../types/songTypes";
 export interface FetchSongsResponse {
-  songCardProps: Song[];
+  songs: Song[];
   totalPages: number;
 }
-export const fetchSongs = async (pageNumber: number): Promise<Song[]> => {
+export const fetchSongs = async (
+  pageNumber: number
+): Promise<FetchSongsResponse> => {
   try {
     const response = await axios.get(`http://localhost:3000/`, {
       params: {
@@ -12,9 +14,9 @@ export const fetchSongs = async (pageNumber: number): Promise<Song[]> => {
       },
     });
 
-    const data: Song[] = response.data;
-    console.log(data);
-    return data; // Return the songs from the response
+    const data: FetchSongsResponse = response.data;
+
+    return data;
   } catch (error) {
     console.error("Error fetching songs:", error);
     throw error; // Rethrow the error to be handled by the component
@@ -23,7 +25,7 @@ export const fetchSongs = async (pageNumber: number): Promise<Song[]> => {
 
 export const addSong = async (songData: Song) => {
   const token = sessionStorage.getItem("accessToken");
-  console.log(JSON.stringify(token));
+  // console.log(JSON.stringify(token));
   await axios
     .post(`http://localhost:3000/`, songData, {
       headers: {
@@ -37,4 +39,20 @@ export const addSong = async (songData: Song) => {
     .catch((error) => {
       console.error("error adding song: " + error);
     });
+};
+
+export const searchSong = async (songName: string): Promise<Song[]> => {
+  try {
+    const response = await axios.get("http://localhost:3000/search", {
+      params: {
+        songName: songName,
+      },
+    });
+
+    // console.log("response.data from the service:", response.data); // Log the data for debugging
+    return response.data;
+  } catch (error) {
+    console.error("Error finding song:", error);
+    return [];
+  }
 };

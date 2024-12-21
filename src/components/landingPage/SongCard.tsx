@@ -1,6 +1,6 @@
 import { Song } from "../../types/songTypes";
 
-const SongCard = ({ name, artist, album, image }: Song) => {
+const SongCard = ({ name, artist, album, image, releaseDate }: Song) => {
   return (
     <div className="group bg-gray-700 text-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transform transition duration-300">
       <div className="overflow-hidden">
@@ -14,6 +14,7 @@ const SongCard = ({ name, artist, album, image }: Song) => {
         <h2 className="text-lg font-semibold">{name}</h2>
         <p className="text-black-500">{artist}</p>
         <p className="text-black-400">Album: {album}</p>
+        <p className="text-black-400">{releaseDate.split("-")[0]}</p>
       </div>
     </div>
   );

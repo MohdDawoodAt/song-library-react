@@ -30,7 +30,7 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
     }
   };
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
     try {
       const token = await adminLogin(username, password);
@@ -58,7 +58,7 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
         setFeedbackType(null);
       }, 3000);
 
-      return () => clearTimeout(timer); // Cleanup the timer
+      return () => clearTimeout(timer);
     }
   }, [feedbackMessage]);
 

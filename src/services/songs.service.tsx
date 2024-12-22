@@ -20,12 +20,12 @@ export const fetchSongs = async (
 
 export const addSong = async (songData: Song) => {
   const token = localStorage.getItem("accessToken");
-  // console.log(JSON.stringify(token));
+
   await axios
     .post(`http://localhost:3000/`, songData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include the JWT token in the Authorization header
-        "Content-Type": "application/json", // Specify the content type
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     })
     .then(() => {
@@ -44,7 +44,6 @@ export const searchSong = async (songName: string): Promise<Song[]> => {
       },
     });
 
-    // console.log("response.data from the service:", response.data); // Log the data for debugging
     return response.data;
   } catch (error) {
     console.error("Error finding song:", error);

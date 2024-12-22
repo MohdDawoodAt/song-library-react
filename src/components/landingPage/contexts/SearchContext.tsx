@@ -6,7 +6,6 @@ interface SearchContextData {
   setSearchValue: (value: string) => void;
   searchResults: Song[] | null;
   setSearchResults: (results: Song[] | null) => void;
-  //   handleSearch: (songName: string) => void;
 
   setIsSearching: (searching: boolean) => void;
   isSearching: boolean;

@@ -11,10 +11,10 @@ const SearchBar = () => {
     isSearching,
     searchResults,
   } = useSearch();
-  const { setTotalPages, setCurrentPage } = usePagination();
+  const { setCurrentPage } = usePagination();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value); // Update search value on input change
+    setSearchValue(e.target.value);
   };
 
   const handleSearch = async () => {
@@ -28,29 +28,28 @@ const SearchBar = () => {
       console.log("Received data in search bar:", results);
 
       setSearchResults(results);
-      setTotalPages(55); // Adjust dynamically if needed
+
       setIsSearching(true);
-      setCurrentPage(1); // Reset pagination to page 1 for search
     } catch (error) {
       console.error("Error while searching for songs:", error);
     }
   };
 
   const clearSearch = () => {
-    setSearchValue(""); // Clear the search input field
-    setSearchResults(null); // Clear search results
-    setIsSearching(false); // Mark search as inactive
-    setCurrentPage(1); // Reset pagination
+    setSearchValue("");
+    setSearchResults(null);
+    setIsSearching(false);
+    setCurrentPage(1);
   };
 
   return (
     <div className="flex items-baseline w-full justify-center mx-auto rounded-md overflow-hidden m-4">
       <input
         type="text"
-        value={searchValue} // Bind the input value to searchValue
+        value={searchValue}
         placeholder="Search for songs"
         className="focus:outline-none focus:ring-4 focus:ring-yellow-400 p-3 pr-4 pl-8"
-        onChange={handleInputChange} // Update state on input change
+        onChange={handleInputChange}
       />
       <button
         type="button"
@@ -62,7 +61,7 @@ const SearchBar = () => {
       {searchValue && (
         <button
           type="button"
-          onClick={clearSearch} // Clear search state and input value
+          onClick={clearSearch}
           className="text-gray-500 hover:text-red-500 px-3"
           aria-label="Clear search"
         >

@@ -9,8 +9,7 @@ const SongCardsGrid = () => {
   const { currentPage, setTotalPages } = usePagination();
   const [songs, setSongs] = useState<Song[] | null>(null);
   const { searchResults } = useSearch();
-  // const fetchedSongs= fetchSongs(pagenumber)
-  // setSongs(fetchedSongs)
+
   const [hasSongs, setHasSongs] = useState(false);
 
   useEffect(() => {

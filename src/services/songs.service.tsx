@@ -51,22 +51,3 @@ export const searchSong = async (songName: string): Promise<Song[]> => {
     return [];
   }
 };
-
-export const populateSongs = async () => {
-  const token = localStorage.getItem("accessToken");
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/populate",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error populating songs:", error);
-    throw error;
-  }
-};

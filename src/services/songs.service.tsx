@@ -7,24 +7,19 @@ export interface FetchSongsResponse {
 export const fetchSongs = async (
   pageNumber: number
 ): Promise<FetchSongsResponse> => {
-  try {
-    const response = await axios.get(`http://localhost:3000/`, {
-      params: {
-        page: pageNumber,
-      },
-    });
+  const response = await axios.get(`http://localhost:3000/`, {
+    params: {
+      page: pageNumber,
+    },
+  });
 
-    const data: FetchSongsResponse = response.data;
+  const data: FetchSongsResponse = response.data;
 
-    return data;
-  } catch (error) {
-    console.error("Error fetching songs:", error);
-    throw error; // Rethrow the error to be handled by the component
-  }
+  return data;
 };
 
 export const addSong = async (songData: Song) => {
-  const token = sessionStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
   // console.log(JSON.stringify(token));
   await axios
     .post(`http://localhost:3000/`, songData, {
@@ -54,5 +49,24 @@ export const searchSong = async (songName: string): Promise<Song[]> => {
   } catch (error) {
     console.error("Error finding song:", error);
     return [];
+  }
+};
+
+export const populateSongs = async () => {
+  const token = localStorage.getItem("accessToken");
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/populate",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error populating songs:", error);
+    throw error;
   }
 };

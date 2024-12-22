@@ -11,16 +11,18 @@ const SongCardsGrid = () => {
   const { searchResults } = useSearch();
   // const fetchedSongs= fetchSongs(pagenumber)
   // setSongs(fetchedSongs)
+  const [hasSongs, setHasSongs] = useState(false);
 
   useEffect(() => {
     const getSongs = async () => {
       try {
         // setLoading(true);
-        const data = await fetchSongs(currentPage); // Call the function here
+        const data = await fetchSongs(currentPage);
+        setHasSongs(true);
         setSongs(data.songs);
         setTotalPages(data.totalPages);
-      } catch (error) {
-        console.error("Error fetching songs:", error);
+      } catch {
+        setHasSongs(false);
       } finally {
         // setLoading(false);
       }
@@ -29,6 +31,11 @@ const SongCardsGrid = () => {
     getSongs();
   }, [currentPage, searchResults, setTotalPages]);
   const displayedSongs = searchResults || songs;
+
+  if (!hasSongs) {
+    return <div>NO SONGS WERE FOUND IN THE DB </div>;
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pr-8 pl-8">
       {displayedSongs?.map((song, index) => (

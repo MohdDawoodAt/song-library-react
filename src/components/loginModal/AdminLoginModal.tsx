@@ -33,10 +33,9 @@ const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
     e.preventDefault(); // Prevent default form submission
 
     try {
-      // setLoading(true); // Start loading
       const token = await adminLogin(username, password);
       if (token) {
-        sessionStorage.setItem("accessToken", token);
+        localStorage.setItem("accessToken", token);
         setIsLoggedIn(true);
         setFeedbackMessage("Login successful!");
         setFeedbackType("success");

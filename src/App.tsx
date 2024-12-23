@@ -25,29 +25,25 @@ const App = () => {
     <PaginationProvider>
       <SearchProvider>
         <div className="bg-gray-800 min-h-screen min-w-full">
-          <div className="flex  justify-center  bg-gray-800  min-h-screen min-w-full">
+          <div className="text-center relative">
             <AdminLoginButton onClick={showLoginModal} />
             <AddSongsButton onClick={showAddSongModal} />
-
-            <div className="text-center">
-              <h1 className="text-3xl font-bold text-yellow-400 mb-2 p-2">
-                Song Library
-              </h1>
-              <SearchBar />
-              <SongCardsGrid />
-            </div>
-          </div>
-          <div>
+            <h1 className="text-3xl font-bold font-serif text-yellow-400 mb-2 p-4">
+              Song Library
+            </h1>
+            <SearchBar />
+            <SongCardsGrid />
             <Pagination />
-            <AdminLoginModal
-              isVisible={isLoginModalVisible}
-              closeModal={hideLoginModal}
-            />
-            <AddSongsModal
-              isVisible={isAddSongsModalVisible}
-              closeModal={hideAddSongModal}
-            />
           </div>
+
+          <AdminLoginModal
+            isVisible={isLoginModalVisible}
+            closeModal={hideLoginModal}
+          />
+          <AddSongsModal
+            isVisible={isAddSongsModalVisible}
+            closeModal={hideAddSongModal}
+          />
         </div>
       </SearchProvider>
     </PaginationProvider>

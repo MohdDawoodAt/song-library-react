@@ -9,7 +9,7 @@ const Pagination = () => {
   if (isSearching) return null;
 
   return (
-    <div className="flex justify-center items-center mt-8 space-x-4 p-2">
+    <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
       <button
         className="bg-yellow-400 text-gray-800 hover:bg-yellow-500 px-4 py-2 rounded-l disabled:bg-gray-400 min-w-24"
         onClick={goToPreviousPage}

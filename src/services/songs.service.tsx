@@ -4,10 +4,13 @@ export interface FetchSongsResponse {
   songs: Song[];
   totalPages: number;
 }
+const apiBaseUrl =
+  import.meta.env.VITE_SONGS_LIBRARY_API || "http://localhost:3000";
+console.log(apiBaseUrl);
 export const fetchSongs = async (
   pageNumber: number
 ): Promise<FetchSongsResponse> => {
-  const response = await axios.get(`http://localhost:3000/`, {
+  const response = await axios.get(apiBaseUrl, {
     params: {
       page: pageNumber,
     },
@@ -22,7 +25,7 @@ export const addSong = async (songData: Song) => {
   const token = localStorage.getItem("accessToken");
 
   await axios
-    .post(`http://localhost:3000/`, songData, {
+    .post(apiBaseUrl, songData, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -38,7 +41,7 @@ export const addSong = async (songData: Song) => {
 
 export const searchSong = async (songName: string): Promise<Song[]> => {
   try {
-    const response = await axios.get("http://localhost:3000/search", {
+    const response = await axios.get(apiBaseUrl + "/search", {
       params: {
         songName: songName,
       },

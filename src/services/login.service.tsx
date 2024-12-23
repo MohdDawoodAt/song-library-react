@@ -5,8 +5,11 @@ export const adminLogin = async (
   password: string
 ): Promise<string | undefined> => {
   try {
+    const apiBaseUrl =
+      import.meta.env.VITE_SONGS_LIBRARY_API || "http://localhost:3000";
+
     const response = await axios.post(
-      `http://localhost:3000/login`,
+      apiBaseUrl + `/login`,
       {
         username,
         password,

@@ -7,10 +7,7 @@ interface AdminLoginModalProps {
   closeModal: () => void;
 }
 
-const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
-  isVisible,
-  closeModal,
-}) => {
+const AdminLoginModal = ({ isVisible, closeModal }: AdminLoginModalProps) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

@@ -15,15 +15,12 @@ const SongCardsGrid = () => {
   useEffect(() => {
     const getSongs = async () => {
       try {
-        // setLoading(true);
         const data = await fetchSongs(currentPage);
         setHasSongs(true);
         setSongs(data.songs);
         setTotalPages(data.totalPages);
       } catch {
         setHasSongs(false);
-      } finally {
-        // setLoading(false);
       }
     };
 
